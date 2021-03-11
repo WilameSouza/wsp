@@ -31,4 +31,4 @@ DirectoryIndex index.wsp
 </IfModule>
 ```
 # At this point... We are ready :v
-See Wiki -> Basics to learn the syntax for coding :p
+See [Wiki -> Basics](https://github.com/WilameSouza/wsp/wiki/Basics) to learn the syntax for coding :p
