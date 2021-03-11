@@ -16,6 +16,7 @@ auto_prepend_file = "/usr/www/wspsyntax.php"
 # Activate PHP on .wsp files
 > Go to .htaccess and put this:
 ```
+php_value auto_prepend_file "/usr/www/wspsyntax.php"
 AddHandler application/x-httpd-php .wsp
 DirectoryIndex index.wsp
 ```
