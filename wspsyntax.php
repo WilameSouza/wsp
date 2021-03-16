@@ -14,36 +14,45 @@ $_WSP['BODY']=null;
 $_WSP['BODY_ATTR']=null;
 $__err=0;
 $_WSP['HTML_ADD']=null;
-function wspcode($code){
-	
-$code=str_ireplace('<wsp>',"<?php",$code);
-$code=str_ireplace('</wsp>',"?>",$code);
-$code=str_ireplace('<wspe>',"<?=",$code);
-$code=str_ireplace('</wspe>',"?>",$code);
-$code=str_ireplace('<tobody>',"tobody(<<<HEREDOC\r\n",$code);
-$code=str_ireplace('</tobody>',"\r\nHEREDOC);",$code);
-$code=str_ireplace('<wspstring>',"<<<HEREDOC"."\r\n",$code);
-$code=str_ireplace('<wspstring/>',"<<<HEREDOC"."\r\n",$code);
-$code=str_ireplace('</wspstring>',"\r\nHEREDOC\r\n",$code);
-$code=str_ireplace('<wspgroup>',null,$code);
-$code=str_ireplace('</wspgroup>',null,$code);
-$code=str_ireplace('<string>',"<<<'HEREDOC'"."\r\n",$code);
-$code=str_ireplace('<string/>',"<<<'HEREDOC'"."\r\n",$code);
-$code=str_ireplace('</string>',"\r\nHEREDOC\r\n",$code);
-$code=str_ireplace('show::','echo',$code);
-$code=str_ireplace('@viewport-no-scalable','<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0"/>',$code);
-$code=str_ireplace('@viewport','\'<meta name="viewport" content="width=device-width,initial-scale=1"/>\'',$code);
-$code=str_ireplace('se->','if',$code);
-$code=str_ireplace('senao->','else',$code);
-$code=str_ireplace('var-> ','$',$code);
-$code=str_ireplace('get::','$_GET',$code);
-$code=str_ireplace('post::','$_POST',$code);
-$code=str_ireplace('files::','$_FILES',$code);
-$code=str_ireplace('<wspkey>','{',$code);
-$code=str_ireplace('</wspkey>','}',$code);
-$code=str_ireplace('??def','isset',$code);
 
-return $code;
+function wspcode($code){
+
+	$wspTagsAvailables = [
+		'<wsp>' => "<?php",
+		'</wsp>' => "?>",
+		'<wspe>' => "<?=",
+		'</wspe>' => "?>",
+		'<tobody>' => "tobody(<<<HEREDOC\r\n",
+		'</tobody>' => "\r\nHEREDOC);",
+		'<wspstring>' => "<<<HEREDOC"."\r\n",
+		'<wspstring/>' => "<<<HEREDOC"."\r\n",
+		'</wspstring>' => "\r\nHEREDOC\r\n",
+		'<wspgroup>' => null,
+		'</wspgroup>' => null,
+		'<string>' => "<<<'HEREDOC'"."\r\n",
+		'<string/>' => "<<<'HEREDOC'"."\r\n",
+		'</string>' => "\r\nHEREDOC\r\n",
+		'show::','echo',
+		'@viewport' => '\'<meta name="viewport" content="width=device-width,initial-scale=1"/>\'',
+		'@viewport-no-scalable' => '<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0"/>',
+		'se->' => 'if',
+		'senao->' => 'else',
+		'var-> ' => '$',
+		'get::' => '$_GET',
+		'post::' => '$_POST',
+		'files::' => '$_FILES',
+		'<wspkey>' => '{',
+		'</wspkey>' => '}',
+		'??def' => 'isset',
+
+	];
+
+	foreach($wspTagsAvailables as $wspTag => $phpTag)
+	{
+		$code=str_ireplace($wspTag,$phpTag,$code);
+	}
+
+	return $code;
 }
 
 // Busca pelo inicio e final do interpretador WSP
